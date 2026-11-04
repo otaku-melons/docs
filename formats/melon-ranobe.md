@@ -1,59 +1,54 @@
 # melon-ranobe
-**melon-ranobe** – это универсальный расширяемый Rolling-формат описательных файлов ранобэ, использующийся в Melon.
+**melon-ranobe** – this is universal extendable Rolling-format for ranobe descriptive JSON files.
 
-## Основные принципы
-* _**Интернациональность**_ – язык контента указывается по стаднарту ISO 639-3, а локализованное название обязано соответствовать ему.
-* _**Классификация глав**_ – для удобства обработчиков поставляется перечень типов, которые могут типизировать главу (типизация не является обязательной).
+## Basic principles
+* _**Chapters classification**_ – for content processors parsers should determine chapters types if this is possible.
 
-### Типы глав
-| **Тип** | **Определение** |
+### Chapter types
+| **Chapter type** | **Description** |
 |---|---|
-| _afterword_ | Послесловие автора, оригинального редактора или издателя. |
-| _art_ | Иллюстрации и дополнительные арты. |
-| _chapter_ | Данный тип выставляется, когда точно известно, что глава не принадлежит ни к одному другому типу. |
-| _epilogue_ | Эпилог. |
-| _extra_ | Бонусные истории, экстра-главы, интервью с авторами и т.д. |
-| _glossary_ | Глоссарий, список персонажей или данные о вселенной произведения. |
-| _prologue_ | Пролог. |
-| _trash_ | Дополнительные главы с рекламой, в том числе переводчиков, и примечаниями. |
+| _afterword_ | Author or publisher afterword. |
+| _art_ | Illustrations and additional images. |
+| _chapter_ | Default chapter. |
+| _epilogue_ | Epilogue. |
+| _extra_ | Extra or bonus stories. |
+| _glossary_ | Glossary or title universe description. |
+| _prologue_ | Prologue. |
+| _trash_ | Additional chapters with adversitement or workers notes. |
 
-* _**Максимальная однозначность**_ – каждое поле имеет или заранее определённый тип с валидным значением, либо же является `null` или пустой структурой при отсутствии данных.
-* _**Независимость**_ – формат полностью абстрагирован от источников и не является специфичным для какого-либо из них.
-* _**Однозначные статусы**_ – используются только основные и наиболее информативные статусы, не разделяемые на статус выпуска произведения и статус перевода.
+* _**Extendable**_ – parsers can extend basic struct by additional data. not described in this manifest.
+* _**Independence**_ – format is completely independent of the sources and is not specific to any of them.
+* _**Internationality**_ – content language specification is powered [ISO 639-3](https://iso639-3.sil.org/code_tables/639/data), localized name must be in same language.
+* _**HTML**_ – only simple modern [HTML](HTML.md) tags are used for storage text data and styling support.
+* _**Maximum clarity**_ – every field has pre‑determined type and valid values or, if no data, it is `null` or empty struct.
+* _**Recognition of merit**_ – transloators, editors and other content workers details always parsed and storage if this info available.
+* _**Rolling**_ – this format has no versions and can be changed without warnings and saving compatibility if this required for optimization, standardization or new impoerant 
+* _**Synthetic ID**_ – if title, branch or chapter hasn't ID in source, it will be generated with two conditions: reproducibility and uniqueness in the source. 
+* _**Typing by original language**_ – instead storage author's country format use original content language (this helps avoid frequent confusion between novels from the USA, the UK and other English‑speaking regions).
+* _**Unambiguous statuses**_ – used only main and informative statuses (without separation into publication and translation statuses).
 
-### Статусы произведения
-| **Статус** | **Значение** |
+### Statuses
+| **Status** | **Description** |
 |---|---|
-| _announced_ | Произведение или перевод только анонсированы, контент ещё недоступен или доступны ознакомительные главы. |
-| _ongoing_ | Означает регулярное поступление контента произведения на языке ресурса. Сочетает в себе как выход глав в оригинале, так и перевод. Например, если главы в оригинале перестали выходить, но перевод продолжается, то этот статус справедлив. |
-| _completed_ | Произведение полностью завершено в оригинале и, если требовалось, выполнен его перевод. |
-| _dropped_ | Произведение заброшено автором или не переводится активно. |
+| _announced_ | Title announced and has no public available content or has only introductory chapters. |
+| _ongoing_ | Title has regular chapters releases on content language. |
+| _completed_ | Title fully published and translation done if necessary. |
+| _dropped_ | Title dropped by author or workers. |
 
-* _**Порядковый индекс**_ – индекс слайда соответствует его порядковому номеру в главе, то есть нумеруется с единицы для удобства считывания данных человеком.
-* _**Расширяемость**_ – парсеры могут предоставлять дополнительные данные, не описанные в данном манифесте.
-* _**Синтетические идентификаторы**_ – если тайтл, ветвь или глава не имеет целочисленного идентификатора, таковой будет сгенерирован с условием повторяемости результата и уникальности в разрезе источника.
-* _**Типизация локализацией**_ – вместо типов через страны используется язык оригинального контента по стандарту [ISO 639-3](https://iso639-3.sil.org/code_tables/639/data) (позволянт избежать частой путаницы между новеллами из США, Великобритании и других англоязычных стран).
-* _**Только базовый HTML**_ – контент представлен списком абзацев HTML, каждый из которых поддерживает лишь базовый набор разметки. Предпочтение всегда отдаётся односимвольным тегам, так как они занимают меньше места и не имеют фактических отличий от длинных аналогов.
-* _**Уважение труда**_ – идентификаторы переводчиков, редакторов и прочих лиц, работавших над адаптацией главы, всегда указывается в соответствующих полях, если такая информация доступна в источнике.
+* _**Unified typing**_ – all titles belong to a certain type.
 
-### Соглашение об HTML
-| **Теги** | **Атрибуты** | **Описание** |
-|---|---|---|
-| _p_ | align | Родительский тег каждого абзаца. Поддерживает только выравнивание. В абзаце может существовать только один такой тег, исключая случаи множества абзацев в блоке **blockquote**. |
-| _h3_ | align | Заголовок, семантически разделяющий главу. |
-| _a_ | href | Якорь для перемещения к заметкам. На данный момент разрешены только ссылки типа `#0`, соответствующие индексу заметки главы. |
-| _b_ | ❌ | Выделяет текст полужирным. Все теги **strong** автоматически приводятся к этому тегу. |
-| _i_ | ❌ | Выделяет текст курсивом. Все теги **em** автоматически приводятся к этому тегу. |
-| _s_ | ❌ | Делает текст перечёркнутым. Все теги **del** и **strike** автоматически приводятся к этому тегу. |
-| _u_ | ❌ | Добавляет подчёркивание к тексту. |
-| _sup_ | ❌ | Отображает текст в виде верхнего индекса. |
-| _sub_ | ❌ | Отображает текст в виде нижнего индекса. |
-| _blockquote_ | data-* | Семантическое выделение части абзаца. Блоки могут содержать другие абзацы, иллюстрации и теги, а также иметь дополнительные сведения, указывающее обработчикам, как их отображать, через `data-*` атрибуты (например, название через `data-name`, цвет через `data-color` и т.д.). |
-| _img_ | src, data-width, data-height | Иллюстрация. Ссылается всегда на локальный файл, может также содержать данные об оригинальном разрешении изображения посредством `data-*` атрибутов. |
+### Types
+| **Type** | **Description** |
+|---|---|
+| _manga_ | Japanese manga. |
+| _manhwa_ | Korean manhwa. |
+| _manhua_ | China manhua. |
+| _oel_ | Original english‑language manga (drawn by non‑japanese authors under the influence of manga).|
+| _western_comic_ | Western comics. |
+| _russian_comic_ | Russian comics. |
+| _indonesian_comic_ | Indonesian comics. |
 
-* _**Rolling**_ – формат не версионируется и может изменяться без предупреждений и без поддержки обратной совместимости, если того потребуют оптимизации, улучшения или соответствие стандартам.
-
-## Пример
+## Example
 ```json
 {
 	"format": "melon-ranobe",
@@ -62,47 +57,53 @@
 	"slug": "ranobe_slug",
 	"content_language": "rus",
 	"localized_name": "Название ранобэ",
-	"en_name": "Ranobe name",
+	"eng_name": "Ranobe name",
 	"another_names": [
 		"Ranobe mei"
 	],
 	"covers": [
 		{
 			"link": "https://example.com/manga_slug/cover.jpg",
+			"file": "covers/cover.jpg",
 			"width": 720,
 			"height": 1280
 		}
 	],
 	"authors": [
-		"Имя автора"
+		"Author name"
 	],
 	"publication_year": 2024,
-	"description": "Первый абзац описания.\nВторой абзац описания.",
+	"description": [
+		"<p style=\"text-align: right\">War is never changes.</p>",
+		"<p>Description text with basic <b>styling</b>.</p>"
+	],
 	"age_limit": 16,
-	"original_language": "jpn",
 	"status": "ongoing",
 	"is_licensed": false,
 	"genres": [
-		"название жанра"
+		"genre"
 	],
 	"tags": [
-		"название тега"
+		"tag"
 	],
 	"franchises": [
-		"название франшизы"
+		"franchise"
 	],
 	"persons": [
 		{
-			"name": "Имя персонажа",
-			"another_names": ["Альтернативные имена персонажа"],
+			"name": "Person name",
+			"another_names": ["Alternative person name"],
 			"images": [
 				{
 					"link": "https://example.com/person_slug/image.jpg",
+					"file": "persons/image.jpg",
 					"width": 480,
 					"height": 480
 				}
 			],
-			"description": "Описание персонажа"
+			"description": [
+				"<p>This is a cool person description with <i>italic</i> styled word.</p>"
+			]
 		}
 	],
 	"branches": [
@@ -118,22 +119,26 @@
 				"slug": "vol1-ch1",
 				"volume": "1",
 				"number": "1",
-				"name": "Название главы",
+				"name": "Chapter name",
 				"type": "chapter",
 				"is_paid": false,
 				"workers": [
-					"Ник переводчика",
-					"Ник редактора"
+					"Translator",
+					"Editor"
 				],
 				"paragraphs": [
-					"<p>Первый абзац <a href=\"#0\">[1]</a>.</p>",
-					"<p>Второй абзац.</p>",
-					"<p><blockquote data-name=\"Письмо\"><p>Текст письма.</p></blockquote></p>",
-					"<p><img src=\"path_to_image.png\" data-width=\"1080\" data-height=\"1920\"></p>"
+					"<h3 style=\"text-align: center\">Заголовок</h3>"
+					"<p>Абзац со сноской<a data-footnote=\"41b34c39-72c8-43ad-84ab-3616ab383921\">*</a>.</p>",
+					"<p>Абзац со <b><u>стилями</u></b>.</p>",
+					"<blockquote data-name=\"Письмо\"><p>Текст письма.</p></blockquote>",
+					"<img src=\"https:example.com/image1.png\" data-file=\"illustrations/image1.png\">"
 				],
-				"footnotes": [
-					"<p><b>Заметка</b> – это краткая подсказка.</p>"
-				]
+				"footnotes": {
+					"41b34c39-72c8-43ad-84ab-3616ab383921": [
+						"<p>Текст пояснения.</p>",
+						"<img width=\"640\" height=\"480\" src=\"https:example.com/image2.png\" data-file=\"illustrations/image2.png\">"
+					]
+				}
 			}
 		]
 	}

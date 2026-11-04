@@ -1,11 +1,30 @@
 # melon-manga
-**melon-manga** – это универсальный расширяемый Rolling-формат описательных файлов манги, использующийся в Melon.
+**melon-manga** – this is universal extendable Rolling-format for manga descriptive JSON files.
 
-## Основные принципы
-* _**Единая типизация**_ – все тайтлы приводятся к общему списку типов.
+## Basic principles
+* _**Extendable**_ – parsers can extend basic struct by additional data. not described in this manifest.
+* _**Independence**_ – format is completely independent of the sources and is not specific to any of them.
+* _**Internationality**_ – content language specification is powered [ISO 639-3](https://iso639-3.sil.org/code_tables/639/data), localized name must be in same language.
+* _**HTML**_ – only simple modern [HTML](HTML.md) tags are used for storage text data and styling support.
+* _**Maximum clarity**_ – every field has pre‑determined type and valid values or, if no data, it is `null` or empty struct.
+* _**Recognition of merit**_ – transloators, editors and other content workers details always parsed and storage if this info available.
+* _**Rolling**_ – this format has no versions and can be changed without warnings and saving compatibility if this required for optimization, standardization or new impoerant 
+* _**Slide indexes from 1**_ – first slide index always is 1, because of it comfortable for humans interpretation.
+* _**Synthetic ID**_ – if title, branch or chapter hasn't ID in source, it will be generated with two conditions: reproducibility and uniqueness in the source. 
+* _**Unambiguous statuses**_ – used only main and informative statuses (without separation into publication and translation statuses).
 
-### Типы произведений
-| **Тип** | **Определение** |
+### Statuses
+| **Status** | **Description** |
+|---|---|
+| _announced_ | Title announced and has no public available content or has only introductory chapters. |
+| _ongoing_ | Title has regular chapters releases on content language. |
+| _completed_ | Title fully published and translation done if necessary. |
+| _dropped_ | Title dropped by author or workers. |
+
+* _**Unified typing**_ – all titles belong to a certain type.
+
+### Types
+| **Type** | **Description** |
 |---|---|
 | _manga_ | Japanese manga. |
 | _manhwa_ | Korean manhwa. |
@@ -15,26 +34,7 @@
 | _russian_comic_ | Russian comics. |
 | _indonesian_comic_ | Indonesian comics. |
 
-* _**Интернациональность**_ – язык контента указывается по стаднарту [ISO 639-3](https://iso639-3.sil.org/code_tables/639/data), а локализованное название обязано соответствовать ему.
-* _**Максимальная однозначность**_ – каждое поле имеет или заранее определённый тип с валидным значением, либо же является `null` или пустой структурой при отсутствии данных.
-* _**Независимость**_ – формат полностью абстрагирован от источников и не является специфичным для какого-либо из них.
-* _**Однозначные статусы**_ – используются только основные и наиболее информативные статусы, не разделяемые на статус выпуска произведения и статус перевода.
-* _**Порядковый индекс**_ – индекс слайда соответствует его порядковому номеру в главе, то есть нумеруется с единицы для удобства считывания данных человеком.
-* _**Расширяемость**_ – парсеры могут предоставлять дополнительные данные, не описанные в данном манифесте.
-* _**Синтетические идентификаторы**_ – если тайтл, ветвь или глава не имеет целочисленного идентификатора, таковой будет сгенерирован с условием повторяемости результата и уникальности в разрезе источника.
-* _**Уважение труда**_ – идентификаторы переводчиков, редакторов и прочих лиц, работавших над адаптацией главы, всегда указывается в соответствующих полях, если такая информация доступна в источнике.
-
-### Статусы произведения
-| **Статус** | **Значение** |
-|---|---|
-| _announced_ | Произведение или перевод только анонсированы, контент ещё недоступен или доступны ознакомительные главы. |
-| _ongoing_ | Означает регулярное поступление контента произведения на языке ресурса. Сочетает в себе как выход глав в оригинале, так и перевод. Например, если главы в оригинале перестали выходить, но перевод продолжается, то этот статус справедлив. |
-| _completed_ | Произведение полностью завершено в оригинале и, если требовалось, выполнен его перевод. |
-| _dropped_ | Произведение заброшено автором или не переводится активно. |
-
-* _**Rolling**_ – формат не версионируется и может изменяться без предупреждений и без поддержки обратной совместимости, если того потребуют оптимизации, улучшения или соответствие стандартам.
-
-## Пример
+## Example
 ```json
 {
 	"format": "melon-manga",
@@ -50,40 +50,47 @@
 	"covers": [
 		{
 			"link": "https://example.com/manga_slug/cover.jpg",
+			"file": "covers/cover.jpg",
 			"width": 720,
 			"height": 1280
 		}
 	],
 	"authors": [
-		"Имя автора"
+		"Author name"
 	],
 	"publication_year": 2024,
-	"description": "Первый абзац описания.\nВторой абзац описания.",
+	"description": [
+		"<p style=\"text-align: right\">War is never changes.</p>",
+		"<p>Description text with basic <b>styling</b>.</p>"
+	],
 	"age_limit": 16,
 	"type": "manga",
 	"status": "ongoing",
 	"is_licensed": false,
 	"genres": [
-		"название жанра"
+		"genre"
 	],
 	"tags": [
-		"название тега"
+		"tag"
 	],
 	"franchises": [
-		"название франшизы"
+		"franchise"
 	],
 	"persons": [
 		{
-			"name": "Имя персонажа",
-			"another_names": ["Альтернативное имя персонажа"],
+			"name": "Person name",
+			"another_names": ["Alternative person name"],
 			"images": [
 				{
 					"link": "https://example.com/person_slug/image.jpg",
+					"file": "persons/image.jpg",
 					"width": 480,
 					"height": 480
 				}
 			],
-			"description": "Описание персонажа"
+			"description": [
+				"<p>This is a cool person description with <i>italic</i> styled word.</p>"
+			]
 		}
 	],
 	"branches": [
@@ -99,16 +106,17 @@
 				"slug": "vol1-ch1",
 				"volume": "1",
 				"number": "1",
-				"name": "Название главы",
+				"name": "Chapter name",
 				"is_paid": false,
 				"workers": [
-					"Ник переводчика",
-					"Ник редактора"
+					"Translator",
+					"Editor"
 				],
 				"slides": [
 					{
 						"index": 1,
 						"link": "https://example.com/manga_slug/vol1_ch1/1.jpg",
+						"file": null,
 						"width": 1080,
 						"height": 1920
 					}

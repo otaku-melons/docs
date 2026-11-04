@@ -22,6 +22,6 @@ Parse everything or just one title? This is inconvenient. Instead parsing titles
 
 - **pages** – count of catalog pages.
 - **filters** – catalog filters (query parameters for example, but each parser can use own filters).
-- **period** – period in hours from now in past in wich titles was updated.
+- **period** – period in hours from now in past in which titles was updated.
 
 Collecting result stored in `{TEMP_DIR}/{PARSER}/collections/{COLLECTION}.txt` file by default and can be parsed by run `melon parse --collection {COLLECTION} --use parser`.
