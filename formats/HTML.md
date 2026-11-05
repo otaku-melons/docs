@@ -57,7 +57,12 @@ from bs4 import BeautifulSoup
 
 from melon.sdk.html_parser import HyperTextParser
 
-chapter_data: str = "<div class=\"container\"><h1>Header</h1><p>Paragraph with <u>styles</u> and <a href=\"www.example.com\">link</a>.</p></div>"
+chapter_data: str = """
+<div class=\"container\">
+    <h1>Header</h1>
+    <p>Paragraph with <u>styles</u> and <a href=\"www.example.com\">link</a>.</p>
+</div>
+"""
 soup = BeautifulSoup(chapter_data, "html.parser")
 container: Tag | None = soup.find("div")
 
@@ -72,7 +77,7 @@ Note that `HyperTextParser` provides only surface transformation for footnotes.
 To create footnote in ranobe chapter content you must make tag `a` with `data-footnote="{FOOTNOTE_ID}"` attribute (unique for every footnote in chapter). In other data fields footnotes denied! Anchor can contain only `*` character, if other text was placed inside it will be replaced automatically.
 
 ```HTML
-<p>This is an questionable paragraph<a data-footnote="bce7190e-8ecc-4f82-a00c-4d86e9e16350"></a>.</p>
+<p>Questionable paragraph<a data-footnote="bce7190e-8ecc-4f82-a00c-4d86e9e16350"></a>.</p>
 ```
 
 For such element `Footnote` object must be provided.
@@ -83,7 +88,7 @@ from melon.core.base.html.footnote import Footnote
 
 chapter # Any abstract ranobe chapter.
 
-paragraph = Paragraph("This is an questionable paragraph<a data-footnote=\"bce7190e-8ecc-4f82-a00c-4d86e9e16350\"></a>.")
+paragraph = Paragraph("Questionable paragraph<a data-footnote=\"bce7190e-8ecc-4f82-a00c-4d86e9e16350\"></a>.")
 
 footnote_paragraphs: tuple[Paragraph, ...] = (Paragraph("Some note."),)
 footnote = Footnote(footnote_paragraphs)
