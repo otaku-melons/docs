@@ -12,7 +12,6 @@ All variables must be upper-case and are divided into two types:
 | DEBUG | boolean | Switch debug mode. | `false` |
 | DEFAULT_OUTPUT_DIR | path | Path to default output directory which used if own output directory not specified for parser. | _output_ |
 | JSON_ATOMIC_WRITE | boolean | Switch atomic write for all JSON files. | `true` |
-| REPOS | url | URL to Melon Git repository for `pxm upgrade`. | https://github.com/otaku-melons/melon |
+| REGISTER | path | Path to attributes register JSON file. | `null` |
 | TEMP_DIR | path | Path to parsers temp files directory. | _temp_ |
-| TEMPLATE_REPOS | url | URL to parser template Git repository for `pxm init …`. | https://github.com/otaku-melons/.parser-template |
 | USE_CACHE | boolean | Switch using cache. | `true` |
