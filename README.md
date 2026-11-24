@@ -5,7 +5,7 @@
 1. **Melon**
 	- 1.1. [List of terms](/melon/TERMS.md)
 	- 1.2. [How it works](/melon/HOW.md)
-	- 1.3. [Enviroment variables](/melon/ENVIROMENT.md)
+	- 1.3. [Environment variables](/melon/ENVIROMENT.md)
 	- 1.4. [pxm]()
 2. **Parsers**
 	- 2.1. [Settings](/parsers/SETTINGS.md)

@@ -7,6 +7,7 @@
 | _configs directory_ | It contains parsers settings files, exported from immutable home directory. | `{CONFIGS_DIR}` |
 | _output directory_ | In this directory parser saves parsing result from own source. Can be changed in parser settings. | `{DEFAULT_OUTPUT_DIR}`, `{OUTPUT_DIR}` |
 | _temporary directory_ | It stored temporary files required for **Melon** processes. | `{TEMP_DIR}` |
+| _parser config directory_ | It is used to store parser, extension and some utils configurations. | `{CONFIGS_DIR}/{PARSER}` |
 | _parser home directory_ | In this directory parser storage own working immutable files. | `parsers/{PARSER}` |
 | _parser output directory_ | In this directory parser saves parsing result from own source. In base contains `titles`, `images` and `content` subdirectories. | `{OUTPUT_DIR}/{PARSER}` |
 | _parser temporary directory_ | It is used to store temporary files required by the parser or to download images without specifying a path. | `{TEMP_DIR}/{PARSER}` |
