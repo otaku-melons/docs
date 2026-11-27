@@ -19,8 +19,8 @@ Directives are declared in the script through `@` character and works for all at
 | `delete` | Delete attribute. | ❌ | ✅ |
 | `drop` | Drop other directive. Can accept several values, separated by comma. If no values, drop all. | `delete`, `case`, `type` | ❌ |
 | `case` | Convert attribute into case. | `low`, `title`, `up` | ✅ |
-| `include` | Include script file. Can be used only in `main.mcs`, script module name must be passed as value without suffix. | {MODULE_NAME} | ❌ |
-| `register` | Enable register processing from `register.json` file. | ❌ | ❌ |
+| `include` | Include script file. Script module name must be passed as value without suffix. Can be used only in script entry point. | {MODULE_NAME} | ❌ |
+| `register` | Require register file to processing attributes (`register.json` in script working directory). Can be used only in script entry point. | ❌ | ❌ |
 | `type` | Typizate attribute. | `franchises`, `genres`, `persons`, `tags` | ✅ |
 
 ### Operations
